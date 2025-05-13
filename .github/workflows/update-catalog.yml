@@ -2,8 +2,11 @@ name: Update Mondadori Catalog
 
 on:
   schedule:
-    - cron: '0 4 * * *'
+    - cron: '0 4 * * *'  # Ogni giorno alle 04:00
   workflow_dispatch:
+
+permissions:
+  contents: write  # NECESSARIO per pushare file modificati
 
 jobs:
   update:
@@ -19,8 +22,7 @@ jobs:
           node-version: 20
 
       - name: Esegui scraping e genera catalog.json
-        run: |
-          node scripts/update-catalog.js
+        run: node scripts/update-catalog.js
 
       - name: Commit e push del catalogo aggiornato
         run: |
