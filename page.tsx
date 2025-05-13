@@ -21,7 +21,7 @@ export default function HomePage() {
 
   return (
     <main className="p-4 max-w-6xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-center">Nuovi libri Mondadori</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Nuovi libri</h1>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {books.map((book, i) => (
           <Card key={i} className="flex flex-col items-center">
