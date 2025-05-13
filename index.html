@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nuovi Libri</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2em;
+      margin-bottom: 1em;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 1rem;
+      text-align: center;
+    }
+    .card img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .card button {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid #000;
+      border-radius: 6px;
+      background: transparent;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Nuovi Libri</h1>
+  <div class="grid" id="books-grid"></div>
+
+  <script>
+    fetch('catalog.json')
+      .then(res => res.json())
+      .then(books => {
+        const grid = document.getElementById('books-grid');
+        books.forEach(book => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <img src="${book.coverUrl}" alt="Copertina di ${book.title}">
+            <div>${book.title}</div>
+            <button onclick="window.open('https://annas-archive.org/search?q=${encodeURIComponent(book.title)}', '_blank')">
+              Cerca su Anna's Archive
+            </button>
+          `;
+          grid.appendChild(card);
+        });
+      });
+  </script>
+</body>
+</html>
