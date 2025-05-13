@@ -1,10 +1,10 @@
 [
   {
-    "title": "Esempio Libro 1",
-    "coverUrl": "/placeholder.svg?height=300&width=200&query=book+cover"
+    "title": "Il nuovo romanzo italiano",
+    "coverUrl": "https://www.lettura.it/images/nuovo-romanzo.jpg"
   },
   {
-    "title": "Esempio Libro 2",
-    "coverUrl": "/placeholder.svg?height=300&width=200&query=book+cover"
+    "title": "The Latest Crime Thriller",
+    "coverUrl": "https://www.thetimes.co.uk/images/latest-thriller.jpg"
   }
 ]
