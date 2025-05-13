@@ -1,0 +1,10 @@
+[
+  {
+    "title": "Esempio Libro 1",
+    "coverUrl": "/placeholder.svg?height=300&width=200&query=book+cover"
+  },
+  {
+    "title": "Esempio Libro 2",
+    "coverUrl": "/placeholder.svg?height=300&width=200&query=book+cover"
+  }
+]
