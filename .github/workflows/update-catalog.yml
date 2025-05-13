@@ -8,6 +8,7 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -17,42 +18,14 @@ jobs:
         with:
           node-version: 20
 
-      - name: Create catalog.json
+      - name: Esegui scraping e genera catalog.json
         run: |
-          mkdir -p public
-          node <<'EOF'
-          import fs from 'fs';
-          const https = await import('https');
+          node scripts/update-catalog.js
 
-          const url = 'https://www.mondadori.it/feed/nuovi-libri';
-
-          https.get(url, res => {
-            let data = '';
-            res.on('data', chunk => data += chunk);
-            res.on('end', () => {
-              try {
-                const json = JSON.parse(data);
-                const books = json.books.map(b => ({
-                  title: b.title,
-                  coverUrl: b.coverUrl
-                }));
-                fs.writeFileSync('public/catalog.json', JSON.stringify(books, null, 2));
-                console.log('Catalogo aggiornato con', books.length, 'libri.');
-              } catch (err) {
-                console.error('Errore nel parsing JSON:', err);
-                process.exit(1);
-              }
-            });
-          }).on('error', err => {
-            console.error('Errore nella richiesta HTTP:', err);
-            process.exit(1);
-          });
-          EOF
-
-      - name: Commit and push updated catalog
+      - name: Commit e push del catalogo aggiornato
         run: |
-          git config user.name 'github-actions'
-          git config user.email 'github-actions@github.com'
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git add public/catalog.json
-          git commit -m "chore: aggiorna catalogo libri" || echo "Nessuna modifica da committare"
+          git commit -m "chore: aggiorna catalogo libri" || echo "Nessuna modifica"
           git push
