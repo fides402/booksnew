@@ -1,13 +1,16 @@
 import fs from 'fs'
-import fetch from 'node-fetch'
 
-const response = await fetch('https://www.mondadori.it/feed/nuovi-libri')
-const data = await response.json()
+const books = [
+  {
+    title: "Il nuovo romanzo italiano",
+    coverUrl: "https://www.lettura.it/images/nuovo-romanzo.jpg"
+  },
+  {
+    title: "The Latest Crime Thriller",
+    coverUrl: "https://www.thetimes.co.uk/images/latest-thriller.jpg"
+  }
+]
 
-const books = data.books.map(book => ({
-  title: book.title,
-  coverUrl: book.coverUrl
-}))
-
+fs.mkdirSync('public', { recursive: true })
 fs.writeFileSync('public/catalog.json', JSON.stringify(books, null, 2))
-console.log('Catalogo aggiornato.')
+console.log(`Catalogo aggiornato con ${books.length} libri.`)
