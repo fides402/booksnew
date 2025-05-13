@@ -2,7 +2,7 @@ name: Update Mondadori Catalog
 
 on:
   schedule:
-    - cron: '0 4 * * *'
+    - cron: '0 4 * * *'  # Ogni giorno alle 4:00
   workflow_dispatch:
 
 jobs:
@@ -18,15 +18,15 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Update catalog
         run: node scripts/update-catalog.js
 
-      - name: Commit and push
+      - name: Commit and push changes
         run: |
           git config user.name 'github-actions'
           git config user.email 'github-actions@github.com'
           git add public/catalog.json
-          git commit -m 'chore: aggiorna catalogo libri' || echo "Nessuna modifica"
+          git commit -m 'chore: aggiorna catalogo libri' || echo "Nessuna modifica da committare"
           git push
